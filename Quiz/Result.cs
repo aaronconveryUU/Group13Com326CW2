@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Quiz
 {
-    internal class Result
+    public class Result
     {
     }
 }

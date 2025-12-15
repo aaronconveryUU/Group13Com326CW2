@@ -4,7 +4,27 @@ using System.Text;
 
 namespace Quiz
 {
-    internal class User
+    public class User
     {
+        public int UserId { get; private set; }
+
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; }
+
+        public User(int userId, string username, string password, string email, string role)
+        {
+            UserId = userId;
+            Username = username;
+            Password = password;
+            Email = email;
+            Role = role;
+        }
+
+        public bool CheckPassword(string password)
+        {
+            return Password == password;
+        }
     }
 }
