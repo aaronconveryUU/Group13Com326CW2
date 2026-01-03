@@ -1,67 +1,87 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Text; 
+using System.IO;
+using System.Linq;
+
 
 namespace Quiz
 {
+
+
     public class Category
     {
-        // Private fields
-        protected int categoryID;
-        private string categoryName;
-        private string categoryDescription;
+        private static string filePath = "categories.csv";
+        private static List<Category> categories = new List<Category>();
 
-        // Public properties
-        public int CategoryID
+        public int CategoryID { get; private set; }
+        public string CategoryName { get; set; }
+        public string CategoryDescription { get; set; }
+
+        public Category(int id, string name, string description)
         {
-            get {return categoryID;}
+            CategoryID = id;
+            CategoryName = name;
+            CategoryDescription = description;
         }
 
-        public string CategoryName
+
+        // CSV Methods 
+        public static void LoadCategories()
         {
-            get {return categoryName;}
-            set {categoryName = value;}
+            categories.Clear();
+
+            if (!File.Exists(filePath))
+                return;
+
+            foreach (string line in File.ReadAllLines(filePath))
+            {
+                string[] parts = line.Split(',');
+                categories.Add(new Category(
+                    int.Parse(parts[0]),
+                    parts[1],
+                    parts[2]
+                ));
+            }
         }
 
-        public string CategoryDescription
+        private static void SaveCategories()
         {
-            get {return categoryDescription;}
-            set {categoryDescription = value;}
+            List<string> lines = categories
+                .Select(c => $"{c.CategoryID},{c.CategoryName},{c.CategoryDescription}")
+                .ToList();
+
+            File.WriteAllLines(filePath, lines);
         }
 
-        // Constructor
-        public Category(int categoryID, string categoryName, string categoryDescription)
+        public void AddCategory()
         {
-            this.CategoryID = categoryID;
-            this.CategoryName = categoryName;
-            this.CategoryDescription = categoryDescription;
+            categories.Add(this);
+            SaveCategories();
         }
 
-        // Methods
-        public AddCategory()
+        public void UpdateCategory(string name, string description)
         {
-
+            CategoryName = name;
+            CategoryDescription = description;
+            SaveCategories();
         }
 
-        public UpdateCategory()
+        public void RemoveCategory()
         {
-
+            categories.Remove(this);
+            SaveCategories();
         }
 
-        public RemoveCategory()
+        public static Category FindCategoryByID(int id)
         {
-
+            return categories.FirstOrDefault(c => c.CategoryID == id);
         }
 
-        public FindCategoryByID()
+        public static List<Category> GetAllCategories()
         {
-
+            return categories;
         }
-
-        public GetAllCategories()
-        {
-
-        }
-
     }
 }
+
