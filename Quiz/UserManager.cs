@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.IO;
 
 namespace Quiz
 {
@@ -22,6 +23,26 @@ namespace Quiz
                 throw new InvalidOperationException($"A user with ID {user.UserId} already exists.");
 
             Users.Add(user);
+
+            string filePath = "users.csv";
+            var lines = new List<string>
+            {
+                "UserID,Username,Password,Email,Role,Status,LoginDate"
+            };
+
+            foreach (var u in Users)
+            {
+                if (u is Student student)
+                {
+                    lines.Add($"{student.UserId}, {student.Username}, {student.Password}, {student.Email}, Student, {student.Status},");
+                }
+                else if (u is Admin admin)
+                {
+                    lines.Add($"{admin.UserId}, {admin.Username}, {admin.Password}, {admin.Email}, Admin, {admin.LoginDate:O}");
+                }
+            }
+
+            File.WriteAllLines(filePath, lines);
         }
 
         // may not be needed
@@ -59,6 +80,27 @@ namespace Quiz
 
             Users.Remove(user);
 
+            string filePath = "users.csv";
+            var lines = new List<string>
+            {
+                "UserId,Username,Password,Email,Role,Status,LoginDate"
+            };
+
+            foreach (var u in Users)
+            {
+                if (u is Student student)
+                {
+                    lines.Add($"{student.UserId},{student.Username},{student.Password},{student.Email},Student,{student.Status},");
+                }
+                else if (u is Admin admin)
+                {
+                    lines.Add($"{admin.UserId},{admin.Username},{admin.Password},{admin.Email},Admin,,{admin.LoginDate:O}");
+                }
+            }
+
+            File.WriteAllLines(filePath, lines);
+
+
             Console.WriteLine("User removed successfully.");
             Console.WriteLine("Press any key to continue...");
             Console.ReadKey();
@@ -71,6 +113,27 @@ namespace Quiz
                 throw new InvalidOperationException($"Student with ID {studentUserId} not found.");
 
             student.SetStatus(newStatus);
+
+            string filePath = "users.csv";
+            var lines = new List<string>
+            {
+                "UserId,Username,Password,Email,Role,Status,LoginDate"
+            };
+
+            foreach (var u in Users)
+            {
+                if (u is Student s)
+                {
+                    lines.Add($"{student.UserId},{student.Username},{student.Password},{student.Email},Student,{student.Status},");
+                }
+                else if (u is Admin admin)
+                {
+                    lines.Add($"{admin.UserId},{admin.Username},{admin.Password},{admin.Email},Admin,,{admin.LoginDate:O}");
+                }
+            }
+
+            File.WriteAllLines(filePath, lines);
+
         }
 
         public User FindUserByID(int userId)
@@ -125,6 +188,27 @@ namespace Quiz
                 user.Email = newEmail;
 
             user.Password = newPassword;
+
+            string filePath = "users.csv";
+            var lines = new List<string>
+            {
+                "UserId,Username,Password,Email,Role,Status,LoginDate"
+            };
+
+            foreach (var u in Users)
+            {
+                if (u is Student student)
+                {
+                    lines.Add($"{student.UserId},{student.Username},{student.Password},{student.Email},Student,{student.Status},");
+                }
+                else if (u is Admin admin)
+                {
+                    lines.Add($"{admin.UserId},{admin.Username},{admin.Password},{admin.Email},Admin,,{admin.LoginDate:O}");
+                }
+            }
+
+            File.WriteAllLines(filePath, lines);
+
 
             Console.WriteLine("User updated successfully.");
             Console.WriteLine("Press any key to continue...");

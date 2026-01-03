@@ -21,7 +21,32 @@ namespace Quiz
 
         public void ViewResults()
         {
+            Console.Clear();
+            Console.WriteLine($"Results for {Username}");
+            Console.WriteLine("----------------------------");
 
+            List<Result> studentResults = Result.FindResultsByStudent(this);
+
+            if (studentResults.Count == 0)
+            {
+                Console.WriteLine("No results found.");
+                Console.WriteLine("Press any key to continue...");
+                Console.ReadKey();
+                return;
+            }
+
+            foreach (Result result in studentResults)
+            {
+                Console.WriteLine($"Quiz: {result.Quiz.QuizTitle}");
+                Console.WriteLine($"Score: {result.Score}/{result.TotalQuestions}");
+                Console.WriteLine($"Percentage: {result.CalculatePercentage():0.00}%");
+                Console.WriteLine($"Feedback: {result.GetFeedbackMessage()}");
+                Console.WriteLine($"Attempt Date: {result.AttemptDate}");
+                Console.WriteLine("-----------------------------");
+            }
+
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadKey();
         }
     }
 }
