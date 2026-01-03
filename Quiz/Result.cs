@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Quiz
 {
@@ -14,46 +13,49 @@ namespace Quiz
         private int totalQuestions;
         private DateTime attemptDate;
 
+        // Simulated storage (since no database is used)
+        private static List<Result> results = new List<Result>();
+
         // Public properties
-        public int ResultID 
+        public int ResultID
         {
-            get {return resultID;}
+            get { return resultID; }
         }
 
         public Student Student
         {
-            get {return student;}
-            set {student = value;}
+            get { return student; }
+            set { student = value; }
         }
 
         public Quiz Quiz
         {
-            get {return quiz;}
-            set {quiz = value;}
+            get { return quiz; }
+            set { quiz = value; }
         }
 
         public int Score
         {
-            get {return score;}
-            set {score = value;}
+            get { return score; }
+            set { score = value; }
         }
 
         public int TotalQuestions
         {
-            get {return totalQuestions;}
-            set {totalQuestions = value;}
+            get { return totalQuestions; }
+            set { totalQuestions = value; }
         }
 
         public DateTime AttemptDate
         {
-            get {return attemptDate;}
-            set {attemptDate = value;}
+            get { return attemptDate; }
+            set { attemptDate = value; }
         }
 
         // Constructor
         public Result(int resultID, Student student, Quiz quiz, int score, int totalQuestions, DateTime attemptDate)
         {
-            this.ResultID = resultID;
+            this.resultID = resultID;
             this.Student = student;
             this.Quiz = quiz;
             this.Score = score;
@@ -61,35 +63,60 @@ namespace Quiz
             this.AttemptDate = attemptDate;
         }
 
-        // Methods
-        public CalculatePercentage()
+        // Calculate percentage score
+        public double CalculatePercentage()
         {
+            if (totalQuestions == 0)
+                return 0;
 
+            return (double)score / totalQuestions * 100;
         }
 
-        public GetFeedbackMessage()
+        // Return feedback based on percentage
+        public string GetFeedbackMessage()
         {
+            double percentage = CalculatePercentage();
 
+            if (percentage >= 80)
+                return "Excellent performance!";
+            else if (percentage >= 50)
+                return "Good effort, you passed.";
+            else
+                return "Needs improvement. Try again.";
         }
 
-        public AddQuizResult()
+        // Add this result to the list
+        public void AddQuizResult()
         {
-
+            results.Add(this);
         }
 
-        public RemoveQuizResult()
+        // Remove this result from the list
+        public void RemoveQuizResult()
         {
-
+            results.Remove(this);
         }
 
-        public FindResultsByStudent()
+        // Find all results for a specific student
+        public static List<Result> FindResultsByStudent(Student student)
         {
+            List<Result> studentResults = new List<Result>();
 
+            foreach (Result result in results)
+            {
+                if (result.Student == student)
+                {
+                    studentResults.Add(result);
+                }
+            }
+
+            return studentResults;
         }
 
-        public GetAllResults()
+        // Return all results
+        public static List<Result> GetAllResults()
         {
-
+            return results;
         }
     }
 }
