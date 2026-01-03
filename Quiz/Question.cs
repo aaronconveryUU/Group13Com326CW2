@@ -39,11 +39,14 @@ namespace Quiz
         }
 
         //Public Methods for Admins
-        public static void AddQuestion(int quizID)
+        public static void AddQuestion(List<Question> questionList)
         {
             Console.Clear();
             Console.WriteLine("ADD NEW QUESTION\n");
 
+            Console.Write("Enter Quiz ID: ");
+            int quizID = int.Parse(Console.ReadLine());
+            
             Console.Write("Enter Question ID: ");
             int id = int.Parse(Console.ReadLine());
 
@@ -77,10 +80,13 @@ namespace Quiz
             Console.ReadKey();
         }
 
-        public static void UpdateQuestion(int quizID)
+        public static void UpdateQuestion(List<Question> questionList)
         {
             Console.Clear();
             Console.WriteLine("UPDATE QUESTION\n");
+
+            Console.Write("Enter Quiz ID: ");
+            int quizID = int.Parse(Console.ReadLine());
 
             Console.Write("Enter Question ID to update: ");
             int id = int.Parse(Console.ReadLine());
@@ -131,10 +137,13 @@ namespace Quiz
             Console.ReadKey();
         }
 
-        public static void RemoveQuestion(int quizID)
+        public static void RemoveQuestion(List<Question> questionList)
         {
             Console.Clear();
             Console.WriteLine("REMOVE QUESTION\n");
+
+            Console.Write("Enter Quiz ID: ");
+            int quizID = int.Parse(Console.ReadLine());
 
             Console.Write("Enter Question ID to remove: ");
             int id = int.Parse(Console.ReadLine());
@@ -148,10 +157,13 @@ namespace Quiz
             Console.ReadKey();
         }
 
-        public static void ViewAllQuestions(int quizID)
+        public static void ViewAllQuestions(List<Question> questionList)
         {
             Console.Clear();
             Console.WriteLine("ALL QUESTIONS\n");
+
+            Console.Write("Enter Quiz ID: ");
+            int quizID = int.Parse(Console.ReadLine());
 
             var questions = LoadAll(quizID);
 
@@ -303,8 +315,7 @@ namespace Quiz
             if (string.IsNullOrWhiteSpace(userAnswer))
                 return false;
 
-            return userAnswer.Trim().ToLower() ==
-                   questionCorrectAnswer.Trim().ToLower();
+            return userAnswer.Trim().ToLower() == questionCorrectAnswer.Trim().ToLower();
         }
     }
 }

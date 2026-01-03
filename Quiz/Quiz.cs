@@ -66,7 +66,7 @@ namespace Quiz
         }
 
         //Public Methods for Admins
-        public static void AddQuiz()
+        public static void AddQuiz(List<Quiz> quizzes)
         {
             Console.Clear();
             Console.WriteLine("ADD NEW QUIZ\n");
@@ -106,7 +106,7 @@ namespace Quiz
             Console.ReadKey();
         }
 
-        public static void UpdateQuiz()
+        public static void UpdateQuiz(List<Quiz> quizzes)
         {
             Console.Clear();
             Console.WriteLine("UPDATE QUIZ\n");
@@ -153,7 +153,7 @@ namespace Quiz
             Console.ReadKey();
         }
 
-        public static void RemoveQuiz()
+        public static void RemoveQuiz(List<Quiz> quizzes)
         {
             Console.Clear();
             Console.WriteLine("REMOVE QUIZ\n");
@@ -176,7 +176,7 @@ namespace Quiz
             Console.ReadKey();
         }
 
-        public static Quiz FindQuizByID()
+        public static Quiz FindQuizByID(List<Quiz> quizzes)
         {
             Console.Clear();
             Console.WriteLine("FIND QUIZ\n");
@@ -198,12 +198,12 @@ namespace Quiz
             return quiz;
         }
 
-        public static List<Quiz> GetAllQuizzes()
+        public static List<Quiz> GetAllQuizzes(List<Quiz> quizzes)
         {
             Console.Clear();
             Console.WriteLine("ALL QUIZZES\n");
 
-            List<Quiz> quizzes = new List<Quiz>();
+            List<Quiz> quizzesList = new List<Quiz>();
 
             foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory(), "Qz*.txt"))
             {

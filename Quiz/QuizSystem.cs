@@ -231,20 +231,20 @@ namespace Quiz
                         switch (choiceCM)
                         {
                             case "1":
-                                categories.AddCategory();
+                                Category.AddCategory(categories);
                                 Console.WriteLine("Press any key to continue...");
                                 Console.ReadKey();
                                 break;
                             case "2":
-                                categories.UpdateCategory();
+                                Category.UpdateCategory(categories);
                                 break;
                             case "3":
-                                categories.RemoveCategory();
+                                Category.RemoveCategory(categories);
                                 break;
                             case "4":
                                 Console.Clear();
                                 Console.WriteLine("All Categories:");
-                                categories.GetAllCategories().ForEach(c => Console.WriteLine(c));
+                                Category.GetAllCategories(categories).ForEach(c => Console.WriteLine(c));
                                 Console.WriteLine("Press any key to continue...");
                                 Console.ReadKey();
                                 break;
@@ -270,20 +270,20 @@ namespace Quiz
                         switch (choiceQuizM)
                         {
                             case "1":
-                                quizzes.AddQuiz();
+                                Quiz.AddQuiz(quizzes);
                                 Console.WriteLine("Press any key to continue...");
                                 Console.ReadKey();
                                 break;
                             case "2":
-                                quizzes.UpdateQuiz();
+                                Quiz.UpdateQuiz(quizzes);
                                 break;
                             case "3":
-                                quizzes.RemoveQuiz();
+                                Quiz.RemoveQuiz(quizzes);
                                 break;
                             case "4":
                                 Console.Clear();
                                 Console.WriteLine("All Quizzes:");
-                                quizzes.GetAllQuizzes().ForEach(q => Console.WriteLine(q));
+                                Quiz.GetAllQuizzes(quizzes).ForEach(q => Console.WriteLine(q));
                                 Console.WriteLine("Press any key to continue...");
                                 Console.ReadKey();
                                 break;
@@ -309,20 +309,20 @@ namespace Quiz
                         switch (choiceQuestionM)
                         {
                             case "1":
-                                questions.AddQuestion();
+                                Question.AddQuestion(questions);
                                 Console.WriteLine("Press any key to continue...");
                                 Console.ReadKey();
                                 break;
                             case "2":
-                                questions.UpdateQuestion();
+                                Question.UpdateQuestion(questions);
                                 break;
                             case "3":
-                                questions.RemoveQuestion();
+                                Question.RemoveQuestion(questions);
                                 break;
                             case "4":
                                 Console.Clear();
                                 Console.WriteLine("All Questions:");
-                                questions.GetAllQuestions().ForEach(c => Console.WriteLine(c));
+                                Question.ViewAllQuestions(questions).ForEach(c => Console.WriteLine(c));
                                 Console.WriteLine("Press any key to continue...");
                                 Console.ReadKey();
                                 break;
