@@ -40,7 +40,14 @@ namespace Quiz
 
         public void LoadSampleData()
         {
-            //
+            Category.GetAllCategories(categories);
+            Quiz.GetAllQuizzes(quizzes);
+
+            if (userManager.GetAllUsers().Count == 0)
+            {
+                userManager.AddUser(new Admin(1, "admin1", "admin123", "admin@email.com", DateTime.Now));
+                userManager.AddUser(new Student(2, "student1", "student123", "student@email.com", "Active"));
+            }
         }
 
         public void ShowMainMenu()
@@ -75,7 +82,7 @@ namespace Quiz
                         break;
                 }
             }
-        }    
+        }
 
         public void AuthenticateAdmin()
         {
@@ -185,7 +192,7 @@ namespace Quiz
                         Console.WriteLine("2. Update User");
                         Console.WriteLine("3. Remove User");
                         Console.WriteLine("4. Show All Users");
-                        Console.WriteLine("0. Logout");
+                        Console.WriteLine("0. Back");
 
                         string choiceUM = Console.ReadLine();
 
@@ -224,7 +231,7 @@ namespace Quiz
                         Console.WriteLine("2. Update Category");
                         Console.WriteLine("3. Remove Category");
                         Console.WriteLine("4. Show All Categories");
-                        Console.WriteLine("0. Logout");
+                        Console.WriteLine("0. Back");
 
                         string choiceCM = Console.ReadLine();
 
@@ -263,7 +270,7 @@ namespace Quiz
                         Console.WriteLine("2. Update Quiz");
                         Console.WriteLine("3. Remove Quiz");
                         Console.WriteLine("4. Show All Quizzes");
-                        Console.WriteLine("0. Logout");
+                        Console.WriteLine("0. Back");
 
                         string choiceQuizM = Console.ReadLine();
 
@@ -302,7 +309,7 @@ namespace Quiz
                         Console.WriteLine("2. Update Question");
                         Console.WriteLine("3. Remove Question");
                         Console.WriteLine("4. Show All Questions");
-                        Console.WriteLine("0. Logout");
+                        Console.WriteLine("0. Back");
 
                         string choiceQuestionM = Console.ReadLine();
 
@@ -322,7 +329,7 @@ namespace Quiz
                             case "4":
                                 Console.Clear();
                                 Console.WriteLine("All Questions:");
-                                Question.ViewAllQuestions(questions).ForEach(c => Console.WriteLine(c));
+                                Question.ViewAllQuestions(questions);
                                 Console.WriteLine("Press any key to continue...");
                                 Console.ReadKey();
                                 break;
@@ -346,17 +353,110 @@ namespace Quiz
 
         public void ShowStudentMenu()
         {
-            //
+            bool exit = false;
+
+            while (!exit)
+            {
+                Console.Clear();
+                Console.WriteLine("STUDENT MENU");
+                Console.WriteLine("1. Take Quiz");
+                Console.WriteLine("2. View Results");
+                Console.WriteLine("0. Logout");
+
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1":
+                        PlayQuiz();
+                        break;
+                    case "2":
+                        ShowStudentResults();
+                        break;
+                    case "0":
+                        exit = true;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice. Please try again.");
+                        break;
+                }
+            }
         }
 
         public void PlayQuiz()
         {
-            //
+            Console.Clear();
+            Console.WriteLine("Available Quizzes:");
+
+            if (quizzes.Count == 0)
+            {
+                Console.WriteLine("No quizzes available. Press any key to return to the menu.");
+                Console.ReadKey();
+                return;
+            }
+
+            foreach (var quiz in quizzes)
+            {
+                Console.WriteLine($"{quiz.QuizID}. {quiz.QuizTitle}");
+            }
+
+            Console.Write("Enter Quiz ID to take the quiz: ");
+            int quizId = int.Parse(Console.ReadLine());
+
+            Quiz selectedQuiz = quizzes.FirstOrDefault(q => q.QuizID == quizId);
+
+            if (selectedQuiz == null)
+            {
+                Console.WriteLine("Quiz not found. Press any key to return to the menu.");
+                Console.ReadKey();
+                return;
+            }
+
+            int score = Quiz.AskQuiz(selectedQuiz.QuizID);
+            int totalQuestions = File.ReadAllLines($"Qz{selectedQuiz.QuizID}.txt").Skip(1).Count(line => !string.IsNullOrWhiteSpace(line));
+
+            Result result = new Result(results.Count + 1, currentStudent, selectedQuiz, score, totalQuestions, DateTime.Now);
+            result.AddQuizResult();
+
+            Console.WriteLine($"You scored {score} out of {totalQuestions}.");
+            Console.WriteLine("press any key to return to the menu.");
+            Console.ReadKey();
+
         }
 
         public void ShowStudentResults()
         {
-            //
+            Console.Clear();
+            Console.WriteLine("Your Quiz Results:");
+
+            if (currentStudent == null)
+            {
+                Console.WriteLine("No student is currently logged in. Press any key to return to the menu.");
+                Console.ReadKey();
+                return;
+            }
+
+            List<Result> studentResults = Result.FindResultsByStudent(currentStudent);
+
+            if (studentResults.Count == 0)
+            {
+                Console.WriteLine("No results found. Press any key to return to the menu.");
+                Console.ReadKey();
+                return;
+            }
+
+            foreach (Result r in studentResults)
+            {
+                double percentage = r.CalculatePercentage();
+                string feedback = r.GetFeedbackMessage();
+                Console.WriteLine($"Quiz: {r.Quiz.QuizTitle}");
+                Console.WriteLine($"Score: {r.Score}/{r.TotalQuestions} ({percentage:0}%)");
+                Console.WriteLine($"Date: {r.AttemptDate}");
+                Console.WriteLine($"Feedback: {feedback}");
+                Console.WriteLine();
+
+            Console.WriteLine("Press any key to return to the menu.");
+            Console.ReadKey();
         }
     }
-}
+}}

@@ -1,0 +1,11 @@
+7,Computer Networks,"Protocols, IP addressing, routing, and network layers",7,List of 10 computer network questions,13/09/2025
+1,"What does IP stand for in networking?",a,E,"Internet Protocol","Internal Process","Information Packet","Interface Program"
+2,"Which device connects multiple networks together?",b,E,"Switch","Router","Hub","Repeater"
+3,"Which protocol is used to send emails?",c,E,"HTTP","FTP","SMTP","SNMP"
+4,"What does LAN stand for?",d,E,"Large Area Network","Linked Area Network","Local Access Network","Local Area Network"
+5,"Which layer of the OSI model handles routing?",a,M,"Network","Transport","Session","Data Link"
+6,"What is the purpose of DNS?",b,M,"Encrypt traffic","Translate domain names to IP addresses","Assign IP addresses","Route packets"
+7,"Which protocol ensures reliable data transmission?",c,M,"UDP","IP","TCP","ICMP"
+8,"What is a MAC address?",d,M,"Logical address","IP alias","Network name","Physical hardware address"
+9,"Which topology connects all devices to a central hub?",a,M,"Star","Bus","Ring","Mesh"
+10,"How many layers are in the OSI model?",b,H,"5","7","6","8"

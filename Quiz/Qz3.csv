@@ -1,0 +1,11 @@
+3,Software Design,"Includes design patterns, architecture principles, and system modelling.",3,List of 10 software design questions,01/09/2025
+1,"What does UML stand for?",a,E,"Unified Modeling Language","Universal Markup Language","Unified Method Language","User Model Language"
+2,"Which diagram shows interactions between objects over time?",b,E,"Class diagram","Sequence diagram","Use case diagram","Activity diagram"
+3,"Which design principle encourages low coupling and high cohesion?",c,E,"DRY","KISS","SOLID","YAGNI"
+4,"What is a design pattern?",d,E,"A coding error","A testing method","A software bug","A reusable solution to a common problem"
+5,"Which SOLID principle focuses on one responsibility per class?",a,M,"Single Responsibility Principle","Open/Closed Principle","Liskov Substitution Principle","Interface Segregation Principle"
+6,"What architectural pattern separates application into Model, View, and Controller?",b,M,"MVVM","MVC","Layered","Client-Server"
+7,"Which design pattern ensures only one instance of a class exists?",c,M,"Factory","Observer","Singleton","Decorator"
+8,"What is the purpose of abstraction in software design?",d,M,"To increase complexity","To hide implementation details","To improve performance","To reduce code duplication"
+9,"Which diagram represents system functionality from a user perspective?",a,M,"Use case diagram","Class diagram","State diagram","Component diagram"
+10,"What principle states that objects should depend on abstractions, not concretions?",b,H,"Encapsulation","Dependency Inversion Principle","Open/Closed Principle","Polymorphism"

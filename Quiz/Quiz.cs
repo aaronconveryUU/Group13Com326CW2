@@ -205,7 +205,7 @@ namespace Quiz
 
             List<Quiz> quizzesList = new List<Quiz>();
 
-            foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory(), "Qz*.txt"))
+            foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory(), "Qz*.csv"))
             {
                 string line = File.ReadLines(file).First();
                 quizzes.Add(ParseCsvLine(line));
@@ -225,7 +225,7 @@ namespace Quiz
         {
             Console.Clear();
 
-            string path = $"Qz{quizID}.txt";
+            string path = $"Qz{quizID}.csv";
 
             if (!File.Exists(path))
             {

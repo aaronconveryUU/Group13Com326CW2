@@ -1,0 +1,11 @@
+2,Data Structures,"Focuses on arrays, lists, stacks, queues, trees, and their applications.",2,List of 10 data structure questions,01/09/2025
+1,"What data structure stores elements in contiguous memory locations?",a,E,"Array","Linked List","Stack","Queue"
+2,"Which data structure follows the FIFO principle?",b,E,"Stack","Queue","Tree","Graph"
+3,"Which data structure uses nodes connected by pointers?",c,E,"Array","Stack","Linked List","Queue"
+4,"What does LIFO stand for?",d,E,"Last In First Output","Load In First Out","Last Input First Output","Last In First Out"
+5,"Which data structure is best suited for recursion?",a,M,"Stack","Queue","Array","Heap"
+6,"What is the time complexity of accessing an element in an array by index?",b,M,"O(n)","O(1)","O(log n)","O(n log n)"
+7,"Which data structure is used to represent hierarchical data?",c,M,"Array","Linked List","Tree","Stack"
+8,"What operation removes the top element from a stack?",a,M,"Pop","Push","Peek","Insert"
+9,"Which traversal method visits root, then left subtree, then right subtree?",d,M,"Postorder","Inorder","Level order","Preorder"
+10,"What is the worst-case time complexity of searching in a balanced binary search tree?",b,H,"O(n)","O(log n)","O(1)","O(n log n)"

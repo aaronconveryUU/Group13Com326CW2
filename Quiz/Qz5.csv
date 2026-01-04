@@ -1,0 +1,11 @@
+5,Database Systems,"SQL queries, relational models, normalization, and transactions.",5,List of 10 database system questions,07/09/2025
+1,"What does SQL stand for?",a,E,"Structured Query Language","Simple Query Language","Standard Query Logic","System Query Language"
+2,"Which database model uses tables with rows and columns?",b,E,"Hierarchical","Relational","Network","Object-Oriented"
+3,"What is a primary key?",c,E,"A foreign identifier","A duplicate field","A unique identifier for a record","An index file"
+4,"Which SQL command is used to retrieve data?",d,E,"INSERT","UPDATE","DELETE","SELECT"
+5,"What does normalization aim to reduce in a database?",a,M,"Data redundancy","Query speed","Table size","Number of records"
+6,"Which SQL clause is used to filter results?",b,M,"ORDER BY","WHERE","GROUP BY","HAVING"
+7,"What is a foreign key used for?",c,M,"Sorting data","Storing duplicates","Linking tables","Improving performance"
+8,"Which normal form removes partial dependency?",d,M,"1NF","3NF","BCNF","2NF"
+9,"What does ACID stand for in transactions?",a,M,"Atomicity, Consistency, Isolation, Durability","Accuracy, Control, Integrity, Durability","Atomicity, Concurrency, Integrity, Data","Access, Control, Isolation, Data"
+10,"Which isolation level prevents dirty reads completely?",b,H,"Read Uncommitted","Serializable","Read Committed","Repeatable Read"

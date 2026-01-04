@@ -1,0 +1,11 @@
+1,OOP Fundamentals,"Covers basics of object-oriented programming",1,List of 10 OOP-related questions,01/09/2025
+1,"What does OOP stand for?",a,E,"Object-Oriented Programming","Operational Output Processing","Open Order Protocol","Overloaded Operator Procedure"
+2,"Which of the following is NOT a core principle of OOP?",d,E,"Encapsulation","Polymorphism","Abstraction","Compilation"
+3,"What is encapsulation in object-oriented programming?",a,M,"Binding data and methods","Inheritance","Overloading","Creating objects"
+4,"Which keyword is used in C# to inherit a class?",c,M,"extends","inherits",":","base"
+5,"What is the purpose of a constructor in a class?",b,E,"To destroy objects","To initialize objects","To inherit methods","To override properties"
+6,"Which concept allows multiple methods with the same name but different parameters?",c,M,"Inheritance","Polymorphism","Overloading","Encapsulation"
+7,"What is the base class for all classes in C#?",a,H,"System.Object","BaseClass","RootClass","MainClass"
+8,"What is the difference between a class and an object?",b,M,"Class is an instance, object is a blueprint","Class is a blueprint, object is an instance","They are the same","Object inherits class"
+9,"Which access modifier makes a member accessible only within its own class?",b,E,"public","private","protected","internal"
+10,"What is polymorphism in OOP?",c,M,"Ability to hide data","Ability to inherit methods","Ability to take many forms","Ability to override constructors"
