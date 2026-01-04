@@ -63,7 +63,6 @@ namespace Quiz
 
         public void RemoveUser()
         {
-            Console.Clear();
             Console.WriteLine("Remove User");
 
             Console.Write("Enter User ID: ");
@@ -147,7 +146,6 @@ namespace Quiz
 
         public void UpdateUserDetails()
         {
-            Console.Clear();
             Console.WriteLine("Update User");
 
             Console.Write("Enter User ID: ");
@@ -215,7 +213,6 @@ namespace Quiz
 
         public User CreateUser()
         {
-            Console.Clear();
             Console.WriteLine("Create New User");
 
             Console.Write("Enter User ID: ");

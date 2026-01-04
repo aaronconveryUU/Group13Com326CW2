@@ -264,7 +264,7 @@ namespace Quiz
         }
 
         // Private methods for splitting, assembling and displaying
-        private static Quiz LoadQuiz(int quizID)
+        public static Quiz LoadQuiz(int quizID)
         {
             string firstLine = File.ReadLines(GetFilePath(quizID)).First();
             return ParseCsvLine(firstLine);

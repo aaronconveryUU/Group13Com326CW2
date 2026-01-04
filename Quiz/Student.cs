@@ -21,7 +21,6 @@ namespace Quiz
 
         public void ViewResults()
         {
-            Console.Clear();
             Console.WriteLine($"Results for {Username}");
             Console.WriteLine("----------------------------");
 
