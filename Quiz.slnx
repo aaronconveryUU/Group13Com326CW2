@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="Quiz/Quiz.csproj" />
+  <Project Path="UserTest/UserTest.csproj" Id="48d3bc44-f2f1-496b-8893-7cab7db1a8b6" />
 </Solution>
