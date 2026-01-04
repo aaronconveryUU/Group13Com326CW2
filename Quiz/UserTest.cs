@@ -11,8 +11,6 @@ namespace Quiz
         {
             UserManager userManager = new UserManager(new List<User>());
 
-            Console.WriteLine("=== USER & RESULT TESTING ===\n");
-
             Admin admin1 = new Admin(1, "admin1", "pass123", "admin1@test.com", DateTime.Now);
             Student student1 = new Student(2, "student1", "stud123", "student1@test.com", "Active");
             Student student2 = new Student(3, "student2", "stud234", "student2@test.com", "Inactive");
