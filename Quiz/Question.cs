@@ -309,8 +309,8 @@ namespace Quiz
             Console.WriteLine($"Correct Answer: {q.QuestionCorrectAnswer}");
         }
 
-        //Private Method assisting AskQuestion
-        private bool IsCorrect(string userAnswer)
+        //Public Method assisting AskQuestion
+        public bool IsCorrect(string userAnswer)
         {
             if (string.IsNullOrWhiteSpace(userAnswer))
                 return false;

@@ -319,7 +319,8 @@ namespace Quiz
         }
 
         // Private Methods assisting AskQuiz
-        private static List<Question> LoadQuestionsForQuiz(int quizID)
+        // needed to be public for testing
+        public static List<Question> LoadQuestionsForQuiz(int quizID)
         {
             List<Question> questions = new List<Question>();
             string path = $"Qz{quizID}.csv";
