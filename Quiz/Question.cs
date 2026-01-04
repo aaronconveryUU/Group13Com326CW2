@@ -35,7 +35,7 @@ namespace Quiz
         //Grab the file method
         private static string GetFilePath(int quizID)
         {
-            return $"Qz{quizID}.txt";
+            return $"Qz{quizID}.csv";
         }
 
         //Public Methods for Admins

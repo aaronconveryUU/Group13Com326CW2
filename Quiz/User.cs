@@ -22,6 +22,10 @@ namespace Quiz
             Role = role;
         }
 
+        public override string ToString()
+        {
+            return $"ID: {UserId}, Username: {Username}, Email: {Email}, Role: {Role}";
+        }
         public bool CheckPassword(string password)
         {
             return Password == password;

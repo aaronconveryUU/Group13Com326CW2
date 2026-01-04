@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.IO;
 
 namespace Quiz
 {
@@ -14,6 +16,7 @@ namespace Quiz
         private DateTime attemptDate;
 
         // Simulated storage (since no database is used)
+        private static readonly string filePath = Path.Combine(AppContext.BaseDirectory, "results.csv");
         private static List<Result> results = new List<Result>();
 
         // Public properties
@@ -86,10 +89,31 @@ namespace Quiz
         }
 
         // Add this result to the list
+        // Add this result to the list AND to results.csv
         public void AddQuizResult()
         {
+            // In-memory
             results.Add(this);
+
+            bool fileExists = File.Exists(filePath);
+
+            using (var writer = new StreamWriter(filePath, append: true))
+            {
+                if (!fileExists)
+                {
+                    writer.WriteLine("ResultID,StudentID,QuizID,Score,TotalQuestions,AttemptDate");
+                }
+
+                writer.WriteLine(string.Join(",",
+                    ResultID,
+                    Student.UserId,
+                    Quiz.QuizID,
+                    Score,
+                    TotalQuestions,
+                    AttemptDate.ToString("O"))); // ISO 8601
+            }
         }
+
 
         // Remove this result from the list
         public void RemoveQuizResult()
@@ -104,7 +128,7 @@ namespace Quiz
 
             foreach (Result result in results)
             {
-                if (result.Student == student)
+                if (result.Student != null && result.Student.UserId == student.UserId)
                 {
                     studentResults.Add(result);
                 }
@@ -118,5 +142,52 @@ namespace Quiz
         {
             return results;
         }
+
+        // ===== Loading from CSV at startup =====
+
+        public static void LoadResultsFromFile(UserManager userManager, List<Quiz> quizzes)
+        {
+            results.Clear();
+
+            if (!File.Exists(filePath))
+                return;
+
+            var lines = File.ReadAllLines(filePath).Skip(1); // skip header
+
+            foreach (var line in lines)
+            {
+                if (string.IsNullOrWhiteSpace(line)) continue;
+
+                var parts = line.Split(',');
+                if (parts.Length < 6) continue;
+
+                if (!int.TryParse(parts[0], out int parsedResultId)) continue;
+                if (!int.TryParse(parts[1], out int parsedStudentId)) continue;
+                if (!int.TryParse(parts[2], out int parsedQuizId)) continue;
+                if (!int.TryParse(parts[3], out int parsedScore)) continue;
+                if (!int.TryParse(parts[4], out int parsedTotalQuestions)) continue;
+                if (!DateTime.TryParse(parts[5], out DateTime parsedAttemptDate)) continue;
+
+                // Find matching student and quiz
+                Student student = userManager
+                    .GetAllUsers()
+                    .OfType<Student>()
+                    .FirstOrDefault(s => s.UserId == parsedStudentId);
+
+                Quiz quiz = quizzes.FirstOrDefault(q => q.QuizID == parsedQuizId);
+
+                if (student != null && quiz != null)
+                {
+                    results.Add(new Result(
+                        parsedResultId,
+                        student,
+                        quiz,
+                        parsedScore,
+                        parsedTotalQuestions,
+                        parsedAttemptDate));
+                }
+            }
+        }
+
     }
 }

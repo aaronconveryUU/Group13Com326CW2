@@ -36,7 +36,7 @@ namespace Quiz
         }
 
         // ===== File Handling =====
-        private static readonly string filePath = "categories.csv";
+        private static readonly string filePath = Path.Combine(AppContext.BaseDirectory, "categories.csv");
 
         private static void LoadFromCsv(List<Category> categories)
         {
@@ -196,27 +196,10 @@ namespace Quiz
 
         public static List<Category> GetAllCategories(List<Category> categories)
         {
-            Console.Clear();
-            Console.WriteLine("ALL CATEGORIES\n");
-
             LoadFromCsv(categories);
-
-            if (categories.Count == 0)
-            {
-                Console.WriteLine("No categories found.");
-            }
-            else
-            {
-                foreach (Category c in categories)
-                {
-                    Display(c);
-                    Console.WriteLine();
-                }
-            }
-
-            Console.ReadKey();
             return categories;
         }
+
 
         // ===== Helper display =====
         private static void Display(Category c)
@@ -225,5 +208,11 @@ namespace Quiz
             Console.WriteLine($"Name: {c.CategoryName}");
             Console.WriteLine($"Description: {c.CategoryDescription}");
         }
+
+        public override string ToString()
+        {
+            return $"ID: {CategoryID}, Name: {CategoryName}, Description: {CategoryDescription}";
+        }
+
     }
 }

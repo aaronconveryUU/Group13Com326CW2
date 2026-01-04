@@ -8,6 +8,8 @@ namespace Quiz
 {
     public class UserManager
     {
+
+        private static readonly string filePath = Path.Combine(AppContext.BaseDirectory, "users.csv");
         public List<User> Users { get; private set; }
 
         public UserManager(List<User> users)
@@ -24,7 +26,6 @@ namespace Quiz
 
             Users.Add(user);
 
-            string filePath = "users.csv";
             var lines = new List<string>
             {
                 "UserID,Username,Password,Email,Role,Status,LoginDate"
@@ -80,7 +81,6 @@ namespace Quiz
 
             Users.Remove(user);
 
-            string filePath = "users.csv";
             var lines = new List<string>
             {
                 "UserId,Username,Password,Email,Role,Status,LoginDate"
@@ -114,7 +114,6 @@ namespace Quiz
 
             student.SetStatus(newStatus);
 
-            string filePath = "users.csv";
             var lines = new List<string>
             {
                 "UserId,Username,Password,Email,Role,Status,LoginDate"
@@ -189,7 +188,6 @@ namespace Quiz
 
             user.Password = newPassword;
 
-            string filePath = "users.csv";
             var lines = new List<string>
             {
                 "UserId,Username,Password,Email,Role,Status,LoginDate"
@@ -251,6 +249,48 @@ namespace Quiz
 
             return newUser;
         }
+
+        public void LoadUsersFromFile()
+        {
+            Users.Clear();
+
+            if (!File.Exists(filePath))
+                return;
+
+            var lines = File.ReadAllLines(filePath).Skip(1); // skip header
+
+            foreach (var line in lines)
+            {
+                if (string.IsNullOrWhiteSpace(line)) continue;
+
+                var parts = line.Split(',', StringSplitOptions.TrimEntries);
+                if (parts.Length < 5) continue;
+
+                if (!int.TryParse(parts[0], out int id)) continue;
+
+                string username = parts[1];
+                string password = parts[2];
+                string email = parts[3];
+                string role = parts[4];
+
+                if (role.Equals("Student", StringComparison.OrdinalIgnoreCase))
+                {
+                    string status = parts.Length > 5 ? parts[5] : "Active";
+
+                    Users.Add(new Student(id, username, password, email, status));
+                }
+                else if (role.Equals("Admin", StringComparison.OrdinalIgnoreCase))
+                {
+                    DateTime loginDate = DateTime.Now;
+
+                    if (parts.Length > 6 && DateTime.TryParse(parts[6], out DateTime parsed))
+                        loginDate = parsed;
+
+                    Users.Add(new Admin(id, username, password, email, loginDate));
+                }
+            }
+        }
+
     }
 
 }

@@ -40,14 +40,19 @@ namespace Quiz
 
         public void LoadSampleData()
         {
+            userManager.LoadUsersFromFile();
+            
             Category.GetAllCategories(categories);
             Quiz.GetAllQuizzes(quizzes);
+
 
             if (userManager.GetAllUsers().Count == 0)
             {
                 userManager.AddUser(new Admin(1, "admin1", "admin123", "admin@email.com", DateTime.Now));
                 userManager.AddUser(new Student(2, "student1", "student123", "student@email.com", "Active"));
             }
+
+            Result.LoadResultsFromFile(userManager, quizzes);
         }
 
         public void ShowMainMenu()
@@ -395,34 +400,54 @@ namespace Quiz
                 return;
             }
 
-            foreach (var quiz in quizzes)
+            for (int i = 0; i < quizzes.Count; i++)
             {
-                Console.WriteLine($"{quiz.QuizID}. {quiz.QuizTitle}");
+                Console.WriteLine($"{i + 1}. {quizzes[i].QuizTitle}");
             }
 
-            Console.Write("Enter Quiz ID to take the quiz: ");
-            int quizId = int.Parse(Console.ReadLine());
+            Console.Write("\nEnter quiz number to take the quiz: ");
+            string? input = Console.ReadLine();
 
-            Quiz selectedQuiz = quizzes.FirstOrDefault(q => q.QuizID == quizId);
-
-            if (selectedQuiz == null)
+            if (!int.TryParse(input, out int choice))
             {
-                Console.WriteLine("Quiz not found. Press any key to return to the menu.");
+                Console.WriteLine("Invalid input. Press any key to return to the menu.");
                 Console.ReadKey();
                 return;
             }
 
-            int score = Quiz.AskQuiz(selectedQuiz.QuizID);
-            int totalQuestions = File.ReadAllLines($"Qz{selectedQuiz.QuizID}.txt").Skip(1).Count(line => !string.IsNullOrWhiteSpace(line));
+            int index = choice - 1;
 
-            Result result = new Result(results.Count + 1, currentStudent, selectedQuiz, score, totalQuestions, DateTime.Now);
+            if (index < 0 || index >= quizzes.Count)
+            {
+                Console.WriteLine("Invalid choice. Press any key to return to the menu.");
+                Console.ReadKey();
+                return;
+            }
+
+            Quiz selectedQuiz = quizzes[index];
+
+            int score = Quiz.AskQuiz(selectedQuiz.QuizID);
+
+            int totalQuestions = File
+                .ReadAllLines($"Qz{selectedQuiz.QuizID}.csv")
+                .Skip(1)
+                .Count(line => !string.IsNullOrWhiteSpace(line));
+
+            Result result = new Result(
+                results.Count + 1,
+                currentStudent,
+                selectedQuiz,
+                score,
+                totalQuestions,
+                DateTime.Now
+            );
             result.AddQuizResult();
 
             Console.WriteLine($"You scored {score} out of {totalQuestions}.");
             Console.WriteLine("press any key to return to the menu.");
             Console.ReadKey();
-
         }
+
 
         public void ShowStudentResults()
         {
@@ -455,8 +480,9 @@ namespace Quiz
                 Console.WriteLine($"Feedback: {feedback}");
                 Console.WriteLine();
 
-            Console.WriteLine("Press any key to return to the menu.");
-            Console.ReadKey();
+                Console.WriteLine("Press any key to return to the menu.");
+                Console.ReadKey();
+            }
         }
     }
-}}
+}

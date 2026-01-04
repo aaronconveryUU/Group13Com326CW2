@@ -62,7 +62,7 @@ namespace Quiz
         //Grab the file method
         private static string GetFilePath(int quizID)
         {
-            return $"Qz{quizID}.txt";
+            return Path.Combine(AppContext.BaseDirectory, $"Qz{quizID}.csv");
         }
 
         //Public Methods for Admins
@@ -200,26 +200,20 @@ namespace Quiz
 
         public static List<Quiz> GetAllQuizzes(List<Quiz> quizzes)
         {
-            Console.Clear();
-            Console.WriteLine("ALL QUIZZES\n");
+            quizzes.Clear();
 
-            List<Quiz> quizzesList = new List<Quiz>();
+            string baseDir = AppContext.BaseDirectory;
 
-            foreach (string file in Directory.GetFiles(Directory.GetCurrentDirectory(), "Qz*.csv"))
+            foreach (string file in Directory.GetFiles(baseDir, "Qz*.csv"))
             {
                 string line = File.ReadLines(file).First();
                 quizzes.Add(ParseCsvLine(line));
             }
 
-            foreach (Quiz quiz in quizzes)
-            {
-                Display(quiz);
-                Console.WriteLine();
-            }
-
-            Console.ReadKey();
             return quizzes;
         }
+
+
 
         public static int AskQuiz(int quizID)
         {
@@ -287,17 +281,21 @@ namespace Quiz
 
         private static Quiz ParseCsvLine(string line)
         {
-            var parts = line.Split(',');
+            List<string> parts = SplitCsv(line);
 
-            return new Quiz(
-                int.Parse(parts[0]),
-                parts[1],
-                parts[2],
-                int.Parse(parts[3]),
-                parts[4],
-                DateTime.Parse(parts[5])
-            );
+            if (parts.Count < 6)
+                throw new FormatException($"Invalid quiz metadata line: {line}");
+
+            int id = int.Parse(parts[0].Trim());
+            string title = parts[1].Trim();
+            string description = parts[2].Trim();
+            int categoryId = int.Parse(parts[3].Trim());
+            string questions = parts[4].Trim();
+            DateTime date = DateTime.Parse(parts[5].Trim());
+
+            return new Quiz(id, title, description, categoryId, questions, date);
         }
+
 
         private string ToCsvLine()
         {
@@ -324,7 +322,7 @@ namespace Quiz
         private static List<Question> LoadQuestionsForQuiz(int quizID)
         {
             List<Question> questions = new List<Question>();
-            string path = $"Qz{quizID}.txt";
+            string path = $"Qz{quizID}.csv";
 
             if (!File.Exists(path))
             {
@@ -378,5 +376,11 @@ namespace Quiz
             result.Add(current);
             return result.Select(s => s.Trim('"')).ToList();
         }
+
+        public override string ToString()
+        {
+            return $"Quiz ID: {QuizID}, Title: {QuizTitle}, Category ID: {QuizCategory}, Questions: {QuizQuestions}, Date: {QuizDate:dd/MM/yyyy}";
+        }
+
     }
 }

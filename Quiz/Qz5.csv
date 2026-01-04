@@ -1,4 +1,4 @@
-5,Database Systems,"SQL queries, relational models, normalization, and transactions.",5,List of 10 database system questions,07/09/2025
+5,Database Systems,"SQL queries relational models normalization and transactions.",5,List of 10 database system questions,07/09/2025
 1,"What does SQL stand for?",a,E,"Structured Query Language","Simple Query Language","Standard Query Logic","System Query Language"
 2,"Which database model uses tables with rows and columns?",b,E,"Hierarchical","Relational","Network","Object-Oriented"
 3,"What is a primary key?",c,E,"A foreign identifier","A duplicate field","A unique identifier for a record","An index file"
