@@ -110,7 +110,7 @@ namespace Quiz
                     Quiz.QuizID,
                     Score,
                     TotalQuestions,
-                    AttemptDate.ToString("O"))); // ISO 8601
+                    AttemptDate.ToString("O")));
             }
         }
 
@@ -152,7 +152,7 @@ namespace Quiz
             if (!File.Exists(filePath))
                 return;
 
-            var lines = File.ReadAllLines(filePath).Skip(1); // skip header
+            var lines = File.ReadAllLines(filePath).Skip(1); 
 
             foreach (var line in lines)
             {
