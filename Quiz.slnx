@@ -1,4 +1,7 @@
 <Solution>
+  <Project Path="CategoriesTest/CategoriesTest.csproj" Id="189ef975-dd96-46db-bace-a527faa20355" />
   <Project Path="Quiz/Quiz.csproj" />
+  <Project Path="QuizQuestionTest/QuizQuestionTest.csproj" Id="00539392-37f2-4947-a132-a6437a8ff6ba" />
+  <Project Path="ResultsTest/ResultsTest.csproj" Id="3dca39b2-553a-40a0-9f68-413b332b7b2f" />
   <Project Path="UserTest/UserTest.csproj" Id="48d3bc44-f2f1-496b-8893-7cab7db1a8b6" />
 </Solution>
