@@ -1,6 +1,9 @@
 ID,Name,Description
-1,Math,Numbers and calculations 
-2,Science,"Physics, Chemistry, Biology"
-3,History ,World History and Events 
-4,Literature,Books and Poetry 
-5,Geography,Books and Poetry 
+1,Programming,Concepts of object-oriented programming and coding principles
+2,Data Structures,"Arrays, lists, stacks, queues, trees, and their applications"
+3,Software Design,"Design patterns, architecture principles, and system modelling"
+4,Web Development,"HTML, CSS, JavaScript, and client-server interactions"
+5,Database Systems,"SQL queries, relational models, normalization, and transactions"
+6,Cybersecurity Basics,"Encryption, authentication, and common security threats"
+7,Computer Networks,"Protocols, IP addressing, routing, and network layers"
+bject obj, BindingFlags invokeAttr)
